@@ -1,0 +1,11 @@
+.env
+.DS_Store
+__pycache__/
+*.pyc
+data/tle/
+.pids/
+data/samples/
+data/features/
+data/orpi.db
+ui/node_modules/
+ui/dist/

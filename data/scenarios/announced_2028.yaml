@@ -1,0 +1,33 @@
+# Scénarios de déploiement futur
+# Ce fichier permet de définir manuellement des objets non encore catalogués
+# pour simuler l'environnement futur (ex: 2028).
+
+scenario_name: "announced_2028"
+description: "Scénario incluant les déploiements majeurs annoncés pour 2028 (Starlink Gen2 partial, Kuiper initial)"
+# Date cible du scénario. Les deltas peuvent etre annualises en fonction de l'ecart a cette date.
+target_date: "2028-01-01"
+# Hypothese: les ajouts sont deployes de facon lineaire entre aujourd'hui et target_date.
+# Les chiffres sont declaratifs (annonces publiques), non garantis.
+deployment_profile: "linear"
+
+constellations:
+  - name: "Starlink Gen2 (Partial)"
+    count: 2000
+    orbit:
+      altitude_km: 530
+      inclination_deg: 53.0
+    object_type: "payload"
+  
+  - name: "Project Kuiper (Shell 1)"
+    count: 1500
+    orbit:
+      altitude_km: 630
+      inclination_deg: 51.9
+    object_type: "payload"
+
+  - name: "Guowang (Test Batch)"
+    count: 300
+    orbit:
+      altitude_km: 1145
+      inclination_deg: 45.0 # Approximate
+    object_type: "payload"

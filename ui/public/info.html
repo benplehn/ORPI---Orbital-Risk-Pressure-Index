@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ORPI v0 - Guide</title>
+    <style>
+      :root {
+        --bg0: #01030a;
+        --bg1: #050910;
+        --panel: rgba(0, 0, 0, 0.55);
+        --border: rgba(255, 255, 255, 0.12);
+        --cyan: #22d3ee;
+        --indigo: #818cf8;
+        --violet: #a855f7;
+        --text: rgba(255, 255, 255, 0.92);
+        --muted: rgba(255, 255, 255, 0.72);
+        --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
+          monospace;
+        --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        background: radial-gradient(1200px 900px at 65% 35%, rgba(14, 165, 233, 0.12), transparent 55%),
+          radial-gradient(900px 700px at 35% 60%, rgba(168, 85, 247, 0.1), transparent 55%),
+          linear-gradient(180deg, #01030a 0%, #030517 55%, #01030a 100%);
+        color: var(--text);
+        font-family: var(--sans);
+      }
+
+      a {
+        color: rgba(220, 255, 255, 0.92);
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .wrap {
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 28px 18px 48px;
+      }
+
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 16px;
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid var(--border);
+        backdrop-filter: blur(10px);
+      }
+
+      .brand {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+      }
+
+      .brand .kicker {
+        font-family: var(--mono);
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        font-size: 11px;
+        color: rgba(34, 211, 238, 0.7);
+      }
+
+      .brand .title {
+        font-size: 22px;
+        font-weight: 900;
+        letter-spacing: 0.04em;
+        background: linear-gradient(90deg, var(--cyan) 0%, rgba(125, 211, 252, 0.95) 45%, var(--indigo) 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .pill {
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        padding: 8px 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(34, 211, 238, 0.25);
+        background: rgba(34, 211, 238, 0.06);
+        color: rgba(220, 255, 255, 0.9);
+        white-space: nowrap;
+      }
+
+      .grid {
+        margin-top: 18px;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+
+      .card {
+        padding: 16px 16px 14px;
+        background: var(--panel);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        box-shadow: 0 0 24px rgba(34, 211, 238, 0.06);
+        backdrop-filter: blur(10px);
+      }
+
+      h2 {
+        margin: 0 0 10px;
+        font-size: 14px;
+        font-family: var(--mono);
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(34, 211, 238, 0.75);
+      }
+
+      p {
+        margin: 0 0 10px;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+
+      ul {
+        margin: 0;
+        padding-left: 18px;
+        color: var(--muted);
+        line-height: 1.55;
+      }
+
+      li + li {
+        margin-top: 6px;
+      }
+
+      code {
+        font-family: var(--mono);
+        font-size: 0.95em;
+        color: rgba(220, 255, 255, 0.9);
+      }
+
+      .formula {
+        margin-top: 10px;
+        padding: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.04);
+        font-family: var(--mono);
+        color: rgba(220, 255, 255, 0.86);
+        overflow-x: auto;
+      }
+
+      .note {
+        margin-top: 10px;
+        padding: 10px 12px;
+        border: 1px dashed rgba(255, 255, 255, 0.18);
+        color: rgba(34, 211, 238, 0.65);
+        font-family: var(--mono);
+        font-size: 12px;
+        line-height: 1.35;
+      }
+
+      .cols2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+
+      @media (max-width: 860px) {
+        .cols2 {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="topbar">
+        <div class="brand">
+          <div class="kicker">Orbital Pressure Index</div>
+          <div class="title">ORPI v0 - Guide</div>
+        </div>
+        <div class="pill"><a href="/">Retour au viewer</a></div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h2>1) Ce que calcule ORPI</h2>
+          <p>
+            ORPI est un <b>indice comparatif</b> de "pression environnementale orbitale". Il sert a comparer des
+            zones orbitales entre elles (pression, variabilite, croissance scenario).
+          </p>
+          <div class="note">
+            ORPI n'est <b>pas</b> une prediction de collision. Il ne dit jamais "collision avec X dans 2 ans".
+          </div>
+        </div>
+
+        <div class="cols2">
+          <div class="card">
+            <h2>2) Donnees & propagation</h2>
+            <ul>
+              <li>Catalogue public de TLE (Space-Track ou CelesTrak).</li>
+              <li>Propagation SGP4 sur une fenetre courte (typiquement 24h, pas une prediction long-terme).</li>
+              <li>On extrait des distributions (altitude / inclinaison / RAAN), pas des evenements.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h2>3) Grille orbitale (cells)</h2>
+            <p>On discretise l'espace orbital en cellules stables :</p>
+            <ul>
+              <li>Altitude: bins en bandes (LEO fin, MEO/GEO plus large).</li>
+              <li>Inclinaison: bins de 2 deg.</li>
+              <li>RAAN: bins de 10 deg (structure de plans, optionnel dans l'interpretation).</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>4) Features</h2>
+          <p>Chaque cellule obtient des features robustes :</p>
+          <ul>
+            <li>
+              <b>N_eff</b> (densite effective): occupation moyenne de la cellule (presence temporelle), pas un simple
+              comptage.
+            </li>
+            <li>
+              <b>Vrel proxy</b> (vitesse relative): proxy de vitesse de rencontre typique, sans faire de pairwise.
+            </li>
+            <li>
+              <b>Sigma</b> (variabilite): variabilite du proxy de risque sur la fenetre.</li>
+            <li>
+              <b>Trend</b> (croissance): delta sous un scenario declaratif (ex: "announced_2028") + annualisation si une date cible est fournie.</li>
+          </ul>
+          <div class="formula">
+            Vrel_proxy ~= 2 * v_circ(alt) * E[ sin(|Delta i| / 2) ]
+          </div>
+          <div class="note">
+            Pourquoi la vitesse relative compte? A densite egale, plus Vrel est grand, plus le "flux" de croisements est eleve (et l'energie d'impact augmente ~ Vrel^2).
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>5) ORPI score</h2>
+          <p>
+            On transforme chaque composante en un score 0-100 via des <b>percentiles</b> (robuste aux valeurs extremes),
+            puis on combine :
+          </p>
+          <div class="formula">
+            pressure_mean ~= SUM(N_eff * Vrel_proxy)
+            <br />
+            pressure_score = percentile(pressure_mean)
+            <br />
+            volatility_score = percentile(Sigma)
+            <br />
+            growth_score = percentile(max(Trend_annual, 0))
+            <br />
+            ORPI = wP*pressure_score + wV*volatility_score + wG*growth_score
+          </div>
+          <p>
+            Un percentile <code>P90</code> signifie: "plus eleve que 90% des cellules (zones) du catalogue".
+          </p>
+          <div class="note">
+            "Trend" n'est pas "3 ans" par magie: on utilise la date cible du scenario si elle existe (annualisation lineaire), sinon on affiche un delta total au scenario.
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>6) Comment lire un resultat</h2>
+          <ul>
+            <li><b>ORPI 0-100</b>: score agregat (plus haut = plus de pression relative).</li>
+            <li><b>Percentile</b>: classement global du score ORPI (P95 = top 5% des zones).</li>
+            <li><b>Cellule</b>: altitude/inc utilisees (binning stable -> defendable).</li>
+            <li><b>Justification</b>: phrase courte (composantes dominantes).</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h2>7) Limites & responsabilite</h2>
+          <ul>
+            <li>Pas de covariance fine, pas de manoeuvres, pas de prediction d'evenement rare precis.</li>
+            <li>Dependance au catalogue public (qualite + fraicheur des TLE).</li>
+            <li>Scenarios: declaratifs (non garantis), explicitement.</li>
+          </ul>
+          <div class="note">
+            ORPI est pense pour la comparaison, la coherence, et la stabilite temporelle (usage assurance / finance).
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
